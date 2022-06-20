@@ -98,8 +98,8 @@
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="875,91" sap2010:WorkflowViewState.IdRef="LogMessage_4" Level="Info" Message="[&quot;Counting commits...&quot;]" />
-    <ui:GetRobotCredential TimeoutMS="{x:Null}" AssetName="Git Credentials" DisplayName="Get Credential" FolderPath="P3 Automation" sap:VirtualizedContainerService.HintSize="875,180" sap2010:WorkflowViewState.IdRef="GetRobotCredential_1" Password="[gitToken]" Username="[gitUsername]" />
+    <ui:LogMessage DisplayName="Log start of workflow" sap:VirtualizedContainerService.HintSize="875,91" sap2010:WorkflowViewState.IdRef="LogMessage_4" Level="Info" Message="[&quot;Counting commits...&quot;]" />
+    <ui:GetRobotCredential TimeoutMS="{x:Null}" AssetName="Git Credentials" DisplayName="Get GitHub credentials" FolderPath="P3 Automation" sap:VirtualizedContainerService.HintSize="875,180" sap2010:WorkflowViewState.IdRef="GetRobotCredential_1" Password="[gitToken]" Username="[gitUsername]" />
     <ui:MultipleAssign DisplayName="Initialize counters and assign request URL for branches" sap:VirtualizedContainerService.HintSize="875,162" sap2010:WorkflowViewState.IdRef="MultipleAssign_1">
       <ui:MultipleAssign.AssignOperations>
         <scg:List x:TypeArguments="ui:AssignOperation" Capacity="8">
@@ -305,6 +305,6 @@
       </ui:ForEach.Body>
     </ui:ForEach>
     <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="875,91" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[String.Format(&quot;Total Commits: {0}&quot;, totalCommits)]" />
-    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="875,91" sap2010:WorkflowViewState.IdRef="LogMessage_5" Level="Info" Message="[&quot;Finished counting commits...&quot;]" />
+    <ui:LogMessage DisplayName="Log end of workflow" sap:VirtualizedContainerService.HintSize="875,91" sap2010:WorkflowViewState.IdRef="LogMessage_5" Level="Info" Message="[&quot;Finished counting commits...&quot;]" />
   </Sequence>
 </Activity>
