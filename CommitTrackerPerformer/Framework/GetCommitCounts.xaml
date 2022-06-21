@@ -2,8 +2,8 @@
   <x:Members>
     <x:Property sap2010:Annotation.AnnotationText="Transaction item to be processed." Name="in_TransactionItem" Type="InArgument(ui:QueueItem)" />
     <x:Property sap2010:Annotation.AnnotationText="Dictionary structure to store configuration data of the process (settings, constants and assets)." Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
-    <x:Property Name="branchCommits" Type="OutArgument(scg:Dictionary(x:String, x:Int32))" />
-    <x:Property Name="totalCommits" Type="OutArgument(x:Int32)" />
+    <x:Property Name="out_BranchCommits" Type="OutArgument(scg:Dictionary(x:String, x:Int32))" />
+    <x:Property Name="out_TotalCommits" Type="OutArgument(x:Int32)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
@@ -105,7 +105,7 @@
         <scg:List x:TypeArguments="ui:AssignOperation" Capacity="8">
           <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_1">
             <ui:AssignOperation.To>
-              <OutArgument x:TypeArguments="scg:Dictionary(x:String, x:Int32)">[branchCommits]</OutArgument>
+              <OutArgument x:TypeArguments="scg:Dictionary(x:String, x:Int32)">[out_branchCommits]</OutArgument>
             </ui:AssignOperation.To>
             <ui:AssignOperation.Value>
               <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Int32)">[New Dictionary(Of String, Integer)]</InArgument>
@@ -113,7 +113,7 @@
           </ui:AssignOperation>
           <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_2">
             <ui:AssignOperation.To>
-              <OutArgument x:TypeArguments="x:Int32">[totalCommits]</OutArgument>
+              <OutArgument x:TypeArguments="x:Int32">[out_TotalCommits]</OutArgument>
             </ui:AssignOperation.To>
             <ui:AssignOperation.Value>
               <InArgument x:TypeArguments="x:Int32">0</InArgument>
@@ -217,7 +217,7 @@
                   </Assign>
                   <InvokeMethod DisplayName="Add number of commits to main" sap:VirtualizedContainerService.HintSize="334,134" sap2010:WorkflowViewState.IdRef="InvokeMethod_1" MethodName="Add">
                     <InvokeMethod.TargetObject>
-                      <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Int32)">[branchCommits]</InArgument>
+                      <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Int32)">[out_branchCommits]</InArgument>
                     </InvokeMethod.TargetObject>
                     <InArgument x:TypeArguments="x:String">[branchName]</InArgument>
                     <InArgument x:TypeArguments="x:Int32">[numCommits]</InArgument>
@@ -267,7 +267,7 @@
                   </Assign>
                   <InvokeMethod DisplayName="Add number of commits to branch" sap:VirtualizedContainerService.HintSize="334,134" sap2010:WorkflowViewState.IdRef="InvokeMethod_2" MethodName="Add">
                     <InvokeMethod.TargetObject>
-                      <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Int32)">[branchCommits]</InArgument>
+                      <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Int32)">[out_branchCommits]</InArgument>
                     </InvokeMethod.TargetObject>
                     <InArgument x:TypeArguments="x:String">[branchName]</InArgument>
                     <InArgument x:TypeArguments="x:Int32">[numCommits]</InArgument>
@@ -277,17 +277,17 @@
             </If>
             <Assign DisplayName="Add number of commits to total" sap:VirtualizedContainerService.HintSize="797,60" sap2010:WorkflowViewState.IdRef="Assign_7">
               <Assign.To>
-                <OutArgument x:TypeArguments="x:Int32">[totalCommits]</OutArgument>
+                <OutArgument x:TypeArguments="x:Int32">[out_TotalCommits]</OutArgument>
               </Assign.To>
               <Assign.Value>
-                <InArgument x:TypeArguments="x:Int32">[totalCommits + numCommits]</InArgument>
+                <InArgument x:TypeArguments="x:Int32">[out_TotalCommits + numCommits]</InArgument>
               </Assign.Value>
             </Assign>
           </Sequence>
         </ActivityAction>
       </ui:ForEach.Body>
     </ui:ForEach>
-    <ui:ForEach x:TypeArguments="scg:KeyValuePair(x:String, x:Int32)" CurrentIndex="{x:Null}" DisplayName="For Each" sap:VirtualizedContainerService.HintSize="875,307" sap2010:WorkflowViewState.IdRef="ForEach`1_2" Values="[branchCommits]">
+    <ui:ForEach x:TypeArguments="scg:KeyValuePair(x:String, x:Int32)" CurrentIndex="{x:Null}" DisplayName="For Each" sap:VirtualizedContainerService.HintSize="875,307" sap2010:WorkflowViewState.IdRef="ForEach`1_2" Values="[out_branchCommits]">
       <ui:ForEach.Body>
         <ActivityAction x:TypeArguments="scg:KeyValuePair(x:String, x:Int32)">
           <ActivityAction.Argument>
@@ -304,7 +304,7 @@
         </ActivityAction>
       </ui:ForEach.Body>
     </ui:ForEach>
-    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="875,91" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[String.Format(&quot;Total Commits: {0}&quot;, totalCommits)]" />
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="875,91" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[String.Format(&quot;Total Commits: {0}&quot;, out_TotalCommits)]" />
     <ui:LogMessage DisplayName="Log end of workflow" sap:VirtualizedContainerService.HintSize="875,91" sap2010:WorkflowViewState.IdRef="LogMessage_5" Level="Info" Message="[&quot;Finished counting commits...&quot;]" />
   </Sequence>
 </Activity>
