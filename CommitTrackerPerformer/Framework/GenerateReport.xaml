@@ -1,17 +1,16 @@
 <Activity mc:Ignorable="sap sap2010" x:Class="GenerateReport" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:p="http://schemas.uipath.com/workflow/activities/word" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property sap2010:Annotation.AnnotationText="Transaction item to be processed." Name="in_TransactionItem" Type="InArgument(ui:QueueItem)" />
-    <x:Property sap2010:Annotation.AnnotationText="Dictionary structure to store configuration data of the process (settings, constants and assets)." Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
     <x:Property Name="in_BranchCommits" Type="InArgument(scg:Dictionary(x:String, x:Int32))" />
     <x:Property Name="in_TotalCommits" Type="InArgument(x:Int32)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1208,2121</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1208,2696</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>GenerateReport_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
-    <scg:List x:TypeArguments="x:String" Capacity="26">
+    <scg:List x:TypeArguments="x:String" Capacity="52">
       <x:String>System.Activities</x:String>
       <x:String>System.Activities.Statements</x:String>
       <x:String>System.Activities.Expressions</x:String>
@@ -38,6 +37,8 @@
       <x:String>System.Collections.ObjectModel</x:String>
       <x:String>UiPath.Word.Activities</x:String>
       <x:String>System.Activities.DynamicUpdate</x:String>
+      <x:String>System.Reflection</x:String>
+      <x:String>System.Runtime.InteropServices</x:String>
     </scg:List>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
@@ -73,10 +74,17 @@
       <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="GenerateReport" sap:VirtualizedContainerService.HintSize="552,2016" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="GenerateReport" sap:VirtualizedContainerService.HintSize="552,2591" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
-      <Variable x:TypeArguments="x:String" Name="branchCommitsString" />
+      <Variable x:TypeArguments="x:String" Name="branchCommitsString">
+        <Variable.Default>
+          <Literal x:TypeArguments="x:String" Value="" />
+        </Variable.Default>
+      </Variable>
       <Variable x:TypeArguments="x:String" Name="associateName" />
+      <Variable x:TypeArguments="x:String" Name="repoURL" />
+      <Variable x:TypeArguments="x:String" Name="gitHubUsername" />
+      <Variable x:TypeArguments="x:String" Name="currentDate" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -84,9 +92,9 @@
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
     <ui:LogMessage DisplayName="Log start of workflow" sap:VirtualizedContainerService.HintSize="510,91" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Generating report...&quot;]" />
-    <ui:MultipleAssign DisplayName="Multiple Assign" sap:VirtualizedContainerService.HintSize="510,100" sap2010:WorkflowViewState.IdRef="MultipleAssign_1">
+    <ui:MultipleAssign DisplayName="Multiple Assign" sap:VirtualizedContainerService.HintSize="510,162" sap2010:WorkflowViewState.IdRef="MultipleAssign_1">
       <ui:MultipleAssign.AssignOperations>
-        <scg:List x:TypeArguments="ui:AssignOperation" Capacity="4">
+        <scg:List x:TypeArguments="ui:AssignOperation" Capacity="8">
           <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_1">
             <ui:AssignOperation.To>
               <OutArgument x:TypeArguments="x:String">[associateName]</OutArgument>
@@ -95,10 +103,51 @@
               <InArgument x:TypeArguments="x:String">[in_TransactionItem.SpecificContent("Associate_Name").ToString]</InArgument>
             </ui:AssignOperation.Value>
           </ui:AssignOperation>
+          <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_2">
+            <ui:AssignOperation.To>
+              <OutArgument x:TypeArguments="x:String">[gitHubUsername]</OutArgument>
+            </ui:AssignOperation.To>
+            <ui:AssignOperation.Value>
+              <InArgument x:TypeArguments="x:String">[in_TransactionItem.SpecificContent("GitHub_Username").ToString]</InArgument>
+            </ui:AssignOperation.Value>
+          </ui:AssignOperation>
+          <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_4">
+            <ui:AssignOperation.To>
+              <OutArgument x:TypeArguments="x:String">[repoURL]</OutArgument>
+            </ui:AssignOperation.To>
+            <ui:AssignOperation.Value>
+              <InArgument x:TypeArguments="x:String">[String.Format("https://github.com/{0}/{1}-P1",in_TransactionItem.SpecificContent("GitHub_Organization").ToString, associateName.Replace(" ","-").Replace("'","-"))]</InArgument>
+            </ui:AssignOperation.Value>
+          </ui:AssignOperation>
         </scg:List>
       </ui:MultipleAssign.AssignOperations>
     </ui:MultipleAssign>
-    <p:WordApplicationScope DisplayName="Open report template" FilePath="Data\Input\Commit History Report Template.docx" sap:VirtualizedContainerService.HintSize="510,1522" sap2010:WorkflowViewState.IdRef="WordApplicationScope_1">
+    <ui:ForEach x:TypeArguments="scg:KeyValuePair(x:String, x:Int32)" CurrentIndex="{x:Null}" DisplayName="For Each" sap:VirtualizedContainerService.HintSize="510,276" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[in_BranchCommits]">
+      <ui:ForEach.Body>
+        <ActivityAction x:TypeArguments="scg:KeyValuePair(x:String, x:Int32)">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="scg:KeyValuePair(x:String, x:Int32)" Name="branch" />
+          </ActivityAction.Argument>
+          <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="304,152" sap2010:WorkflowViewState.IdRef="Sequence_3">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_1">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[branchCommitsString]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">[String.Format("{2}{0}{1}{3}: {4}", Constants.vbCrLf, Constants.vbTab, branchCommitsString, branch.Key, branch.Value)]</InArgument>
+              </Assign.Value>
+            </Assign>
+          </Sequence>
+        </ActivityAction>
+      </ui:ForEach.Body>
+    </ui:ForEach>
+    <ui:CopyFile ContinueOnError="{x:Null}" Destination="Data\Temp\Commit History Report Template.docx" DisplayName="Copy File" sap:VirtualizedContainerService.HintSize="510,157" sap2010:WorkflowViewState.IdRef="CopyFile_1" Overwrite="True" Path="Data\Input\Commit History Report Template.docx" />
+    <p:WordApplicationScope DisplayName="Open report template" FilePath="Data\Temp\Commit History Report Template.docx" sap:VirtualizedContainerService.HintSize="510,1522" sap2010:WorkflowViewState.IdRef="WordApplicationScope_1">
       <p:WordApplicationScope.Body>
         <ActivityAction x:TypeArguments="ui:WordDocument">
           <ActivityAction.Argument>
@@ -111,12 +160,12 @@
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
             <p:WordReplaceText Found="{x:Null}" DisplayName="Enter associate name" sap:VirtualizedContainerService.HintSize="434,162" sap2010:WorkflowViewState.IdRef="WordReplaceText_1" Replace="[associateName]" ReplaceAll="False" Search="{}{Associate_Name}" />
-            <p:WordReplaceText Found="{x:Null}" Replace="{x:Null}" DisplayName="Enter GitHub username" sap:VirtualizedContainerService.HintSize="434,162" sap2010:WorkflowViewState.IdRef="WordReplaceText_2" ReplaceAll="False" Search="{}{GitHub_Username}" />
-            <p:WordReplaceText Found="{x:Null}" Replace="{x:Null}" DisplayName="Enter report generation date" sap:VirtualizedContainerService.HintSize="434,162" sap2010:WorkflowViewState.IdRef="WordReplaceText_3" ReplaceAll="False" Search="{}{Report_Date}" />
-            <p:WordReplaceText Found="{x:Null}" Replace="{x:Null}" DisplayName="Enter repository URL" sap:VirtualizedContainerService.HintSize="434,162" sap2010:WorkflowViewState.IdRef="WordReplaceText_4" ReplaceAll="False" Search="{}{Repo_URL}" />
-            <p:WordReplaceText Found="{x:Null}" DisplayName="Enter commits per branch" sap:VirtualizedContainerService.HintSize="434,162" sap2010:WorkflowViewState.IdRef="WordReplaceText_5" Replace="[BranchCommitsString]" ReplaceAll="False" Search="{}{Branch_Commits}" />
+            <p:WordReplaceText Found="{x:Null}" DisplayName="Enter GitHub username" sap:VirtualizedContainerService.HintSize="434,162" sap2010:WorkflowViewState.IdRef="WordReplaceText_2" Replace="[gitHubUsername]" ReplaceAll="False" Search="{}{GitHub_Username}" />
+            <p:WordReplaceText Found="{x:Null}" DisplayName="Enter report generation date" sap:VirtualizedContainerService.HintSize="434,162" sap2010:WorkflowViewState.IdRef="WordReplaceText_3" Replace="[Now.ToShortDateString]" ReplaceAll="False" Search="{}{Report_Date}" />
+            <p:WordReplaceText Found="{x:Null}" DisplayName="Enter repository URL" sap:VirtualizedContainerService.HintSize="434,162" sap2010:WorkflowViewState.IdRef="WordReplaceText_4" Replace="[repoURL]" ReplaceAll="False" Search="{}{Repo_URL}" />
+            <p:WordReplaceText Found="{x:Null}" DisplayName="Enter commits per branch" sap:VirtualizedContainerService.HintSize="434,162" sap2010:WorkflowViewState.IdRef="WordReplaceText_5" Replace="[branchCommitsString]" ReplaceAll="False" Search="{}{Branch_Commits}" />
             <p:WordReplaceText Found="{x:Null}" DisplayName="Enter total commits" sap:VirtualizedContainerService.HintSize="434,162" sap2010:WorkflowViewState.IdRef="WordReplaceText_6" Replace="[in_TotalCommits.ToString]" ReplaceAll="False" Search="{}{Total_Commits}" />
-            <p:WordExportToPdf DisplayName="Save Document as PDF" FilePath="[String.Format(&quot;Data\Output\{0} Commit History Report - {1}.pdf&quot;)]" sap:VirtualizedContainerService.HintSize="434,109" sap2010:WorkflowViewState.IdRef="WordExportToPdf_1" />
+            <p:WordExportToPdf DisplayName="Export report as PDF" FilePath="[String.Format(&quot;Data\Output\{0} Commit History Report - {1}.pdf&quot;, associateName, Now.ToString(&quot;MM-dd-yyyy&quot;))]" sap:VirtualizedContainerService.HintSize="434,109" sap2010:WorkflowViewState.IdRef="WordExportToPdf_1" />
           </Sequence>
         </ActivityAction>
       </p:WordApplicationScope.Body>
