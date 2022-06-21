@@ -3,9 +3,9 @@
   "description": "A dispatcher process to pull repositories from a given organization and add them to a queue.",
   "main": "Main.xaml",
   "dependencies": {
-    "UiPath.Excel.Activities": "[2.9.5]",
-    "UiPath.System.Activities": "[20.10.4]",
-    "UiPath.UIAutomation.Activities": "[20.10.9]",
+    "UiPath.Excel.Activities": "[2.12.3]",
+    "UiPath.System.Activities": "[22.4.1]",
+    "UiPath.UIAutomation.Activities": "[22.4.5]",
     "UiPath.WebAPI.Activities": "[1.11.1]"
   },
   "webServices": [],
@@ -15,9 +15,7 @@
   "projectVersion": "1.0.0",
   "runtimeOptions": {
     "autoDispose": false,
-    "netFrameworkLazyLoading": false,
     "isPausable": true,
-    "isAttended": false,
     "requiresUserInteraction": true,
     "supportsPersistence": false,
     "excludedLoggedData": [
@@ -26,8 +24,7 @@
     ],
     "executionType": "Workflow",
     "readyForPiP": false,
-    "startsInPiP": false,
-    "mustRestoreAllDependencies": false
+    "startsInPiP": false
   },
   "designOptions": {
     "projectProfile": "Developement",
@@ -53,6 +50,5 @@
   ],
   "isTemplate": false,
   "templateProjectData": {},
-  "publishData": {},
-  "targetFramework": "Legacy"
+  "publishData": {}
 }
