@@ -128,7 +128,7 @@
           <x:Boolean x:Key="IsPinned">True</x:Boolean>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
-      <ui:CopyFile ContinueOnError="{x:Null}" Destination="C:\Revature\track-commit-history\CommitTrackerPerformer" DisplayName="Copy File" sap:VirtualizedContainerService.HintSize="434,160" sap2010:WorkflowViewState.IdRef="CopyFile_1" Overwrite="True" Path="C:\Users\miket\OneDrive\Documents\User Revature Report.docx">
+      <ui:CopyFile ContinueOnError="{x:Null}" Destination="C:\Revature\track-commit-history\CommitTrackerPerformer" DisplayName="Copy File" sap:VirtualizedContainerService.HintSize="434,160" sap2010:WorkflowViewState.IdRef="CopyFile_1" Overwrite="True" Path="C:\Revature\track-commit-history\User Revature Report.docx">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsPinned">True</x:Boolean>

@@ -3,9 +3,14 @@
   "description": "A performer process to retrieve queue items containing repository links and generate reports on the number of commits for each collaborator.",
   "main": "Main.xaml",
   "dependencies": {
+    "BitMiracle.Docotic.Pdf": "[8.6.13474]",
+    "Syncfusion.Xamarin.Pdf": "[20.1.0.60]",
     "UiPath.Excel.Activities": "[2.9.5]",
+    "UiPath.PDF.Activities": "[3.7.1-preview]",
     "UiPath.System.Activities": "[20.10.4]",
-    "UiPath.UIAutomation.Activities": "[20.10.9]"
+    "UiPath.UIAutomation.Activities": "[20.10.9]",
+    "UiPath.WebAPI.Activities": "[1.11.1]",
+    "UiPath.Word.Activities": "[1.10.1]"
   },
   "webServices": [],
   "entitiesStores": [],
@@ -14,7 +19,9 @@
   "projectVersion": "1.0.0",
   "runtimeOptions": {
     "autoDispose": false,
+    "netFrameworkLazyLoading": false,
     "isPausable": true,
+    "isAttended": false,
     "requiresUserInteraction": true,
     "supportsPersistence": false,
     "excludedLoggedData": [
@@ -23,7 +30,8 @@
     ],
     "executionType": "Workflow",
     "readyForPiP": false,
-    "startsInPiP": false
+    "startsInPiP": false,
+    "mustRestoreAllDependencies": false
   },
   "designOptions": {
     "projectProfile": "Developement",
@@ -49,5 +57,6 @@
   ],
   "isTemplate": false,
   "templateProjectData": {},
-  "publishData": {}
+  "publishData": {},
+  "targetFramework": "Legacy"
 }
