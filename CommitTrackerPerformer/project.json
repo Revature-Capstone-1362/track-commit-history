@@ -1,6 +1,6 @@
 {
   "name": "CommitTrackerPerformer",
-  "description": "A performer process to retrieve queue items containing repository links and generate reports on the number of commits for each collaborator.",
+  "description": "A performer process to retrieve queue items containing associate information and generate reports on the number of commits for each repository.",
   "main": "Main.xaml",
   "dependencies": {
     "UiPath.Excel.Activities": "[2.12.3]",

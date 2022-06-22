@@ -1,6 +1,6 @@
 {
   "name": "CommitTrackerDispatcher",
-  "description": "A dispatcher process to pull repositories from a given organization and add them to a queue.",
+  "description": "A dispatcher process to pull associate information from input file(s) and add them to a queue.",
   "main": "Main.xaml",
   "dependencies": {
     "UiPath.Excel.Activities": "[2.12.3]",
