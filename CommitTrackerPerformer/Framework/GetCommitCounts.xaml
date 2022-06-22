@@ -186,7 +186,7 @@
                       <OutArgument x:TypeArguments="x:String">[requestURL]</OutArgument>
                     </Assign.To>
                     <Assign.Value>
-                      <InArgument x:TypeArguments="x:String">[String.Format("https://api.github.com/repos/{0}/{1}/commits?per_page=100", "220425-UiPath", "music-majors")]</InArgument>
+                      <InArgument x:TypeArguments="x:String">[String.Format("https://api.github.com/repos/{0}/{1}-P1/commits?per_page=100", in_TransactionItem.SpecificContent("GitHub_Organization").ToString, in_TransactionItem.SpecificContent("Associate_Name").ToString.Replace(" ","-").Replace("'","-"))]</InArgument>
                     </Assign.Value>
                   </Assign>
                   <ui:HttpClient Body="{x:Null}" ClientCertificate="{x:Null}" ClientCertificatePassword="{x:Null}" ConsumerKey="{x:Null}" ConsumerSecret="{x:Null}" ContinueOnError="{x:Null}" FileAttachments="{x:Null}" OAuth1Token="{x:Null}" OAuth1TokenSecret="{x:Null}" OAuth2Token="{x:Null}" Password="{x:Null}" ResourcePath="{x:Null}" ResponseAttachment="{x:Null}" ResponseHeaders="{x:Null}" SecureClientCertificatePassword="{x:Null}" StatusCode="{x:Null}" AcceptFormat="JSON" AuthenticationType="None" BodyFormat="application/xml" DisplayName="HTTP request for commits to main" EnableSSLVerification="True" EndPoint="[requestURL]" sap:VirtualizedContainerService.HintSize="334,57" sap2010:WorkflowViewState.IdRef="HttpClient_2" Method="GET" Result="[contentString]" SecurePassword="[gitToken]" TimeoutMS="6000" Username="[gitUsername]">
@@ -236,7 +236,7 @@
                       <OutArgument x:TypeArguments="x:String">[requestURL]</OutArgument>
                     </Assign.To>
                     <Assign.Value>
-                      <InArgument x:TypeArguments="x:String">[String.Format("https://api.github.com/repos/{0}/{1}/compare/main...{2}", "220425-UiPath", "music-majors", branchName)]</InArgument>
+                      <InArgument x:TypeArguments="x:String">[String.Format("https://api.github.com/repos/{0}/{1}-P1/compare/main...{2}", in_TransactionItem.SpecificContent("GitHub_Organization").ToString, in_TransactionItem.SpecificContent("Associate_Name").ToString.Replace(" ","-").Replace("'","-"), branchName)]</InArgument>
                     </Assign.Value>
                   </Assign>
                   <ui:HttpClient Body="{x:Null}" ClientCertificate="{x:Null}" ClientCertificatePassword="{x:Null}" ConsumerKey="{x:Null}" ConsumerSecret="{x:Null}" ContinueOnError="{x:Null}" FileAttachments="{x:Null}" OAuth1Token="{x:Null}" OAuth1TokenSecret="{x:Null}" OAuth2Token="{x:Null}" Password="{x:Null}" ResourcePath="{x:Null}" ResponseAttachment="{x:Null}" ResponseHeaders="{x:Null}" SecureClientCertificatePassword="{x:Null}" StatusCode="{x:Null}" AcceptFormat="JSON" AuthenticationType="None" BodyFormat="application/xml" DisplayName="HTTP request for commits to a branch" EnableSSLVerification="True" EndPoint="[requestURL]" sap:VirtualizedContainerService.HintSize="334,57" sap2010:WorkflowViewState.IdRef="HttpClient_3" Method="GET" Result="[contentString]" SecurePassword="[gitToken]" TimeoutMS="6000" Username="[gitUsername]">
