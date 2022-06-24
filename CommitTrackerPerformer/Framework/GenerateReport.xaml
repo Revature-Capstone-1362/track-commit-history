@@ -166,9 +166,9 @@
             <p:WordReplaceText Found="{x:Null}" DisplayName="Enter repository URL" sap:VirtualizedContainerService.HintSize="569,162" sap2010:WorkflowViewState.IdRef="WordReplaceText_4" Replace="[repoURL]" ReplaceAll="False" Search="{}{Repo_URL}" />
             <p:WordReplaceText Found="{x:Null}" DisplayName="Enter commits per branch" sap:VirtualizedContainerService.HintSize="569,162" sap2010:WorkflowViewState.IdRef="WordReplaceText_5" Replace="[branchCommitsString]" ReplaceAll="False" Search="{}{Branch_Commits}" />
             <p:WordReplaceText Found="{x:Null}" DisplayName="Enter total commits" sap:VirtualizedContainerService.HintSize="569,162" sap2010:WorkflowViewState.IdRef="WordReplaceText_6" Replace="[in_TotalCommits.ToString]" ReplaceAll="False" Search="{}{Total_Commits}" />
-            <If Condition="[in_Config(&quot;OutputReportPath&quot;).ToString.Equals(&quot;&quot;)]" sap:VirtualizedContainerService.HintSize="569,207" sap2010:WorkflowViewState.IdRef="If_1">
+            <If Condition="[in_Config(&quot;OutputReportPath&quot;).ToString.Equals(&quot;&quot;)]" DisplayName="Check if custom output directory is set" sap:VirtualizedContainerService.HintSize="569,207" sap2010:WorkflowViewState.IdRef="If_1">
               <If.Then>
-                <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_2">
+                <Assign DisplayName="Set output directory to default" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_2">
                   <Assign.To>
                     <OutArgument x:TypeArguments="x:String">[outputPath]</OutArgument>
                   </Assign.To>
@@ -178,7 +178,7 @@
                 </Assign>
               </If.Then>
               <If.Else>
-                <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_3">
+                <Assign DisplayName="Set output directory to custom path" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_3">
                   <Assign.To>
                     <OutArgument x:TypeArguments="x:String">[outputPath]</OutArgument>
                   </Assign.To>
