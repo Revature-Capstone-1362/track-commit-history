@@ -157,6 +157,9 @@
           <InArgument x:TypeArguments="x:Int32" x:Key="in_TotalCommits">
             <mva:VisualBasicValue x:TypeArguments="x:Int32" ExpressionText="TotalCommits" />
           </InArgument>
+          <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">
+            <mva:VisualBasicValue x:TypeArguments="scg:Dictionary(x:String, x:Object)" ExpressionText="in_Config" />
+          </InArgument>
         </ui:InvokeWorkflowFile.Arguments>
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
