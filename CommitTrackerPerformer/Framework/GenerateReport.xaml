@@ -243,9 +243,9 @@
         </ActivityAction>
       </p:WordApplicationScope.Body>
     </p:WordApplicationScope>
-    <If Condition="[in_Config(&quot;OverrideEmail&quot;).ToString.Equals(&quot;&quot;)]" DisplayName="Check if email override is set" sap:VirtualizedContainerService.HintSize="713,296" sap2010:WorkflowViewState.IdRef="If_3">
+    <If Condition="[in_Config(&quot;OverrideEmail&quot;).ToString.Equals(&quot;&quot;)]" DisplayName="Check if email override is set" sap:VirtualizedContainerService.HintSize="3014,296" sap2010:WorkflowViewState.IdRef="If_3">
       <If.Then>
-        <ui:SendMail Bcc="{x:Null}" Cc="{x:Null}" From="{x:Null}" MailMessage="{x:Null}" Name="{x:Null}" Password="{x:Null}" ReplyTo="{x:Null}" TimeoutMS="{x:Null}" Body="[String.Format(&quot;Please see attached commit history report for {0} in (1) with {2}.&quot;, associateName, cohortIdentifier, trainerName)]" DisplayName="Send email to trainer and manager" Email="[emailUsername]" EnableSSL="True" sap:VirtualizedContainerService.HintSize="334,148" sap2010:WorkflowViewState.IdRef="SendMail_1" IsBodyHtml="False" Port="[Integer.Parse(in_Config(&quot;EmailPort&quot;).ToString)]" SecureConnection="Auto" SecurePassword="[emailPassword]" Server="[in_Config(&quot;EmailServer&quot;).ToString]" Subject="Associate Commit History Report" To="[String.Format(&quot;{0},{1}&quot;, trainerEmail, managerEmail)]">
+        <ui:SendMail Bcc="{x:Null}" Cc="{x:Null}" From="{x:Null}" MailMessage="{x:Null}" Name="{x:Null}" Password="{x:Null}" ReplyTo="{x:Null}" TimeoutMS="{x:Null}" Body="[String.Format(&quot;Please see attached commit history report for {0} in {1} with {2}.&quot;, associateName, cohortIdentifier, trainerName)]" DisplayName="Send email to trainer and manager" Email="[emailUsername]" EnableSSL="True" sap:VirtualizedContainerService.HintSize="334,148" sap2010:WorkflowViewState.IdRef="SendMail_1" IsBodyHtml="False" Port="[Integer.Parse(in_Config(&quot;EmailPort&quot;).ToString)]" SecureConnection="Auto" SecurePassword="[emailPassword]" Server="[in_Config(&quot;EmailServer&quot;).ToString]" Subject="Associate Commit History Report" To="[String.Format(&quot;{0},{1}&quot;, trainerEmail, managerEmail)]">
           <ui:SendMail.Files>
             <scg:List x:TypeArguments="InArgument(x:String)" Capacity="4">
               <InArgument x:TypeArguments="x:String">[String.Format("{0}\{1} Commit History Report - {2}.pdf", outputPath, associateName, Now.ToString("MM-dd-yyyy"))]</InArgument>
@@ -254,7 +254,7 @@
         </ui:SendMail>
       </If.Then>
       <If.Else>
-        <ui:SendMail Bcc="{x:Null}" Cc="{x:Null}" From="{x:Null}" MailMessage="{x:Null}" Name="{x:Null}" Password="{x:Null}" ReplyTo="{x:Null}" TimeoutMS="{x:Null}" Body="[String.Format(&quot;Please see attached commit history report for {0} in (1) with {2}.&quot;, associateName, cohortIdentifier, trainerName)]" DisplayName="Send email to override email(s)" Email="[emailUsername]" EnableSSL="True" sap:VirtualizedContainerService.HintSize="334,148" sap2010:WorkflowViewState.IdRef="SendMail_2" IsBodyHtml="False" Port="[Integer.Parse(in_Config(&quot;EmailPort&quot;).ToString)]" SecureConnection="Auto" SecurePassword="[emailPassword]" Server="[in_Config(&quot;EmailServer&quot;).ToString]" Subject="Associate Commit History Report" To="[in_Config(&quot;OverrideEmail&quot;).ToString]">
+        <ui:SendMail Bcc="{x:Null}" Cc="{x:Null}" From="{x:Null}" MailMessage="{x:Null}" Name="{x:Null}" Password="{x:Null}" ReplyTo="{x:Null}" TimeoutMS="{x:Null}" Body="[String.Format(&quot;Please see attached commit history report for {0} in {1} with {2}.&quot;, associateName, cohortIdentifier, trainerName)]" DisplayName="Send email to override email(s)" Email="[emailUsername]" EnableSSL="True" sap:VirtualizedContainerService.HintSize="334,148" sap2010:WorkflowViewState.IdRef="SendMail_2" IsBodyHtml="False" Port="[Integer.Parse(in_Config(&quot;EmailPort&quot;).ToString)]" SecureConnection="Auto" SecurePassword="[emailPassword]" Server="[in_Config(&quot;EmailServer&quot;).ToString]" Subject="Associate Commit History Report" To="[in_Config(&quot;OverrideEmail&quot;).ToString]">
           <ui:SendMail.Files>
             <scg:List x:TypeArguments="InArgument(x:String)" Capacity="4">
               <InArgument x:TypeArguments="x:String">[String.Format("{0}\{1} Commit History Report - {2}.pdf", outputPath, associateName, Now.ToString("MM-dd-yyyy"))]</InArgument>
@@ -263,6 +263,6 @@
         </ui:SendMail>
       </If.Else>
     </If>
-    <ui:LogMessage DisplayName="Log end of workflow" sap:VirtualizedContainerService.HintSize="713,91" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;Report generated and emailed...&quot;]" />
+    <ui:LogMessage DisplayName="Log end of workflow" sap:VirtualizedContainerService.HintSize="3014,91" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;Report generated and emailed...&quot;]" />
   </Sequence>
 </Activity>
