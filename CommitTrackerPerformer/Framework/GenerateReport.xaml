@@ -8,7 +8,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1208,3561</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>3046,2659</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>GenerateReport_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="33">
@@ -84,7 +84,7 @@
       <AssemblyReference>UiPath.Web.Activities</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="GenerateReport" sap:VirtualizedContainerService.HintSize="755,3456" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="GenerateReport" sap:VirtualizedContainerService.HintSize="3056,2554" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="branchCommitsString">
         <Variable.Default>
@@ -99,15 +99,17 @@
       <Variable x:TypeArguments="ss:SecureString" Name="emailPassword" />
       <Variable x:TypeArguments="x:String" Name="trainerEmail" />
       <Variable x:TypeArguments="x:String" Name="managerEmail" />
+      <Variable x:TypeArguments="x:String" Name="trainerName" />
+      <Variable x:TypeArguments="x:String" Name="cohortIdentifier" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:LogMessage DisplayName="Log start of workflow" sap:VirtualizedContainerService.HintSize="713,91" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Generating report...&quot;]" />
-    <ui:GetRobotCredential TimeoutMS="{x:Null}" AssetName="[in_Config(&quot;EmailCredentialAssetName&quot;).ToString]" DisplayName="Get Credential" FolderPath="[in_Config(&quot;EmailCredentialFolderPath&quot;).ToString]" sap:VirtualizedContainerService.HintSize="713,180" sap2010:WorkflowViewState.IdRef="GetRobotCredential_1" Password="[emailPassword]" Username="[emailUsername]" />
-    <ui:MultipleAssign DisplayName="Get information from transaction item for ease of access" sap:VirtualizedContainerService.HintSize="713,224" sap2010:WorkflowViewState.IdRef="MultipleAssign_1">
+    <ui:LogMessage DisplayName="Log start of workflow" sap:VirtualizedContainerService.HintSize="3014,91" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Generating report...&quot;]" />
+    <ui:GetRobotCredential TimeoutMS="{x:Null}" AssetName="[in_Config(&quot;EmailCredentialAssetName&quot;).ToString]" DisplayName="Get Credential" FolderPath="[in_Config(&quot;EmailCredentialFolderPath&quot;).ToString]" sap:VirtualizedContainerService.HintSize="3014,180" sap2010:WorkflowViewState.IdRef="GetRobotCredential_1" Password="[emailPassword]" Username="[emailUsername]" />
+    <ui:MultipleAssign DisplayName="Get information from transaction item for ease of access" sap:VirtualizedContainerService.HintSize="3014,286" sap2010:WorkflowViewState.IdRef="MultipleAssign_1">
       <ui:MultipleAssign.AssignOperations>
         <scg:List x:TypeArguments="ui:AssignOperation" Capacity="8">
           <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_1">
@@ -124,6 +126,22 @@
             </ui:AssignOperation.To>
             <ui:AssignOperation.Value>
               <InArgument x:TypeArguments="x:String">[in_TransactionItem.SpecificContent("GitHub_Username").ToString]</InArgument>
+            </ui:AssignOperation.Value>
+          </ui:AssignOperation>
+          <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_7">
+            <ui:AssignOperation.To>
+              <OutArgument x:TypeArguments="x:String">[cohortIdentifier]</OutArgument>
+            </ui:AssignOperation.To>
+            <ui:AssignOperation.Value>
+              <InArgument x:TypeArguments="x:String">[in_TransactionItem.SpecificContent("GitHub_Organization").ToString]</InArgument>
+            </ui:AssignOperation.Value>
+          </ui:AssignOperation>
+          <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_8">
+            <ui:AssignOperation.To>
+              <OutArgument x:TypeArguments="x:String">[trainerName]</OutArgument>
+            </ui:AssignOperation.To>
+            <ui:AssignOperation.Value>
+              <InArgument x:TypeArguments="x:String">[in_TransactionItem.SpecificContent("Trainer_Name").ToString]</InArgument>
             </ui:AssignOperation.Value>
           </ui:AssignOperation>
           <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_4">
@@ -153,7 +171,7 @@
         </scg:List>
       </ui:MultipleAssign.AssignOperations>
     </ui:MultipleAssign>
-    <ui:ForEach x:TypeArguments="scg:KeyValuePair(x:String, x:Int32)" CurrentIndex="{x:Null}" DisplayName="Go through each branch in dictionary" sap:VirtualizedContainerService.HintSize="713,276" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[in_BranchCommits]">
+    <ui:ForEach x:TypeArguments="scg:KeyValuePair(x:String, x:Int32)" CurrentIndex="{x:Null}" DisplayName="Go through each branch in dictionary" sap:VirtualizedContainerService.HintSize="3014,276" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[in_BranchCommits]">
       <ui:ForEach.Body>
         <ActivityAction x:TypeArguments="scg:KeyValuePair(x:String, x:Int32)">
           <ActivityAction.Argument>
@@ -177,26 +195,28 @@
         </ActivityAction>
       </ui:ForEach.Body>
     </ui:ForEach>
-    <ui:CopyFile ContinueOnError="{x:Null}" Destination="Data\Temp\Commit History Report Template.docx" DisplayName="Make a copy of template into temp directory" sap:VirtualizedContainerService.HintSize="713,157" sap2010:WorkflowViewState.IdRef="CopyFile_1" Overwrite="True" Path="Data\Input\Commit History Report Template.docx" />
-    <p:WordApplicationScope DisplayName="Open report template" FilePath="Data\Temp\Commit History Report Template.docx" sap:VirtualizedContainerService.HintSize="713,1769" sap2010:WorkflowViewState.IdRef="WordApplicationScope_1">
+    <ui:CopyFile ContinueOnError="{x:Null}" Destination="Data\Temp\Commit History Report Template.docx" DisplayName="Make a copy of template into temp directory" sap:VirtualizedContainerService.HintSize="3014,157" sap2010:WorkflowViewState.IdRef="CopyFile_1" Overwrite="True" Path="Data\Input\Commit History Report Template.docx" />
+    <p:WordApplicationScope DisplayName="Open report template" FilePath="Data\Temp\Commit History Report Template.docx" sap:VirtualizedContainerService.HintSize="3014,805" sap2010:WorkflowViewState.IdRef="WordApplicationScope_1">
       <p:WordApplicationScope.Body>
         <ActivityAction x:TypeArguments="ui:WordDocument">
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="ui:WordDocument" Name="WordDocumentScope" />
           </ActivityAction.Argument>
-          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="611,1660" sap2010:WorkflowViewState.IdRef="Sequence_2">
+          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="2980,696" sap2010:WorkflowViewState.IdRef="Sequence_2">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <p:WordReplaceText Found="{x:Null}" DisplayName="Enter associate name" sap:VirtualizedContainerService.HintSize="569,162" sap2010:WorkflowViewState.IdRef="WordReplaceText_1" Replace="[associateName]" ReplaceAll="False" Search="{}{Associate_Name}" />
-            <p:WordReplaceText Found="{x:Null}" DisplayName="Enter GitHub username" sap:VirtualizedContainerService.HintSize="569,162" sap2010:WorkflowViewState.IdRef="WordReplaceText_2" Replace="[gitHubUsername]" ReplaceAll="False" Search="{}{GitHub_Username}" />
-            <p:WordReplaceText Found="{x:Null}" DisplayName="Enter report generation date" sap:VirtualizedContainerService.HintSize="569,162" sap2010:WorkflowViewState.IdRef="WordReplaceText_3" Replace="[Now.ToShortDateString]" ReplaceAll="False" Search="{}{Report_Date}" />
-            <p:WordReplaceText Found="{x:Null}" DisplayName="Enter repository URL" sap:VirtualizedContainerService.HintSize="569,162" sap2010:WorkflowViewState.IdRef="WordReplaceText_4" Replace="[repoURL]" ReplaceAll="False" Search="{}{Repo_URL}" />
-            <p:WordReplaceText Found="{x:Null}" DisplayName="Enter commits per branch" sap:VirtualizedContainerService.HintSize="569,162" sap2010:WorkflowViewState.IdRef="WordReplaceText_5" Replace="[branchCommitsString]" ReplaceAll="False" Search="{}{Branch_Commits}" />
-            <p:WordReplaceText Found="{x:Null}" DisplayName="Enter total commits" sap:VirtualizedContainerService.HintSize="569,162" sap2010:WorkflowViewState.IdRef="WordReplaceText_6" Replace="[in_TotalCommits.ToString]" ReplaceAll="False" Search="{}{Total_Commits}" />
-            <If Condition="[in_Config(&quot;OutputReportPath&quot;).ToString.Equals(&quot;&quot;)]" DisplayName="Check if custom output directory is set" sap:VirtualizedContainerService.HintSize="569,207" sap2010:WorkflowViewState.IdRef="If_1">
+            <Parallel sap:VirtualizedContainerService.HintSize="2938,208" sap2010:WorkflowViewState.IdRef="Parallel_1">
+              <p:WordReplaceText Found="{x:Null}" DisplayName="Enter associate name" sap:VirtualizedContainerService.HintSize="434,162" sap2010:WorkflowViewState.IdRef="WordReplaceText_1" Replace="[associateName]" ReplaceAll="False" Search="{}{Associate_Name}" />
+              <p:WordReplaceText Found="{x:Null}" DisplayName="Enter GitHub username" sap:VirtualizedContainerService.HintSize="434,162" sap2010:WorkflowViewState.IdRef="WordReplaceText_2" Replace="[gitHubUsername]" ReplaceAll="False" Search="{}{GitHub_Username}" />
+              <p:WordReplaceText Found="{x:Null}" DisplayName="Enter report generation date" sap:VirtualizedContainerService.HintSize="434,162" sap2010:WorkflowViewState.IdRef="WordReplaceText_3" Replace="[Now.ToShortDateString]" ReplaceAll="False" Search="{}{Report_Date}" />
+              <p:WordReplaceText Found="{x:Null}" DisplayName="Enter repository URL" sap:VirtualizedContainerService.HintSize="434,162" sap2010:WorkflowViewState.IdRef="WordReplaceText_4" Replace="[repoURL]" ReplaceAll="False" Search="{}{Repo_URL}" />
+              <p:WordReplaceText Found="{x:Null}" DisplayName="Enter commits per branch" sap:VirtualizedContainerService.HintSize="434,162" sap2010:WorkflowViewState.IdRef="WordReplaceText_5" Replace="[branchCommitsString]" ReplaceAll="False" Search="{}{Branch_Commits}" />
+              <p:WordReplaceText Found="{x:Null}" DisplayName="Enter total commits" sap:VirtualizedContainerService.HintSize="434,162" sap2010:WorkflowViewState.IdRef="WordReplaceText_6" Replace="[in_TotalCommits.ToString]" ReplaceAll="False" Search="{}{Total_Commits}" />
+            </Parallel>
+            <If Condition="[in_Config(&quot;OutputReportPath&quot;).ToString.Equals(&quot;&quot;)]" DisplayName="Check if custom output directory is set" sap:VirtualizedContainerService.HintSize="2938,207" sap2010:WorkflowViewState.IdRef="If_1">
               <If.Then>
                 <Assign DisplayName="Set output directory to default" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_2">
                   <Assign.To>
@@ -218,14 +238,14 @@
                 </Assign>
               </If.Else>
             </If>
-            <p:WordExportToPdf DisplayName="Export report as PDF" FilePath="[String.Format(&quot;{0}\{1} Commit History Report - {2}.pdf&quot;, outputPath, associateName, Now.ToString(&quot;MM-dd-yyyy&quot;))]" sap:VirtualizedContainerService.HintSize="569,109" sap2010:WorkflowViewState.IdRef="WordExportToPdf_1" />
+            <p:WordExportToPdf DisplayName="Export report as PDF" FilePath="[String.Format(&quot;{0}\{1} Commit History Report - {2}.pdf&quot;, outputPath, associateName, Now.ToString(&quot;MM-dd-yyyy&quot;))]" sap:VirtualizedContainerService.HintSize="2938,109" sap2010:WorkflowViewState.IdRef="WordExportToPdf_1" />
           </Sequence>
         </ActivityAction>
       </p:WordApplicationScope.Body>
     </p:WordApplicationScope>
     <If Condition="[in_Config(&quot;OverrideEmail&quot;).ToString.Equals(&quot;&quot;)]" DisplayName="Check if email override is set" sap:VirtualizedContainerService.HintSize="713,296" sap2010:WorkflowViewState.IdRef="If_3">
       <If.Then>
-        <ui:SendMail Bcc="{x:Null}" Cc="{x:Null}" From="{x:Null}" MailMessage="{x:Null}" Name="{x:Null}" Password="{x:Null}" ReplyTo="{x:Null}" TimeoutMS="{x:Null}" Body="Please see attached associate commit history report." DisplayName="Send email to trainer and manager" Email="[emailUsername]" EnableSSL="True" sap:VirtualizedContainerService.HintSize="334,148" sap2010:WorkflowViewState.IdRef="SendMail_1" IsBodyHtml="False" Port="[Integer.Parse(in_Config(&quot;EmailPort&quot;).ToString)]" SecureConnection="Auto" SecurePassword="[emailPassword]" Server="[in_Config(&quot;EmailServer&quot;).ToString]" Subject="Associate Commit History Report" To="[String.Format(&quot;{0},{1}&quot;, trainerEmail, managerEmail)]">
+        <ui:SendMail Bcc="{x:Null}" Cc="{x:Null}" From="{x:Null}" MailMessage="{x:Null}" Name="{x:Null}" Password="{x:Null}" ReplyTo="{x:Null}" TimeoutMS="{x:Null}" Body="[String.Format(&quot;Please see attached commit history report for {0} in (1) with {2}.&quot;, associateName, cohortIdentifier, trainerName)]" DisplayName="Send email to trainer and manager" Email="[emailUsername]" EnableSSL="True" sap:VirtualizedContainerService.HintSize="334,148" sap2010:WorkflowViewState.IdRef="SendMail_1" IsBodyHtml="False" Port="[Integer.Parse(in_Config(&quot;EmailPort&quot;).ToString)]" SecureConnection="Auto" SecurePassword="[emailPassword]" Server="[in_Config(&quot;EmailServer&quot;).ToString]" Subject="Associate Commit History Report" To="[String.Format(&quot;{0},{1}&quot;, trainerEmail, managerEmail)]">
           <ui:SendMail.Files>
             <scg:List x:TypeArguments="InArgument(x:String)" Capacity="4">
               <InArgument x:TypeArguments="x:String">[String.Format("{0}\{1} Commit History Report - {2}.pdf", outputPath, associateName, Now.ToString("MM-dd-yyyy"))]</InArgument>
@@ -234,7 +254,7 @@
         </ui:SendMail>
       </If.Then>
       <If.Else>
-        <ui:SendMail Bcc="{x:Null}" Cc="{x:Null}" From="{x:Null}" MailMessage="{x:Null}" Name="{x:Null}" Password="{x:Null}" ReplyTo="{x:Null}" TimeoutMS="{x:Null}" Body="Please see attached associate commit history report." DisplayName="Send email to overried email(s)" Email="[emailUsername]" EnableSSL="True" sap:VirtualizedContainerService.HintSize="334,148" sap2010:WorkflowViewState.IdRef="SendMail_2" IsBodyHtml="False" Port="[Integer.Parse(in_Config(&quot;EmailPort&quot;).ToString)]" SecureConnection="Auto" SecurePassword="[emailPassword]" Server="[in_Config(&quot;EmailServer&quot;).ToString]" Subject="Associate Commit History Report" To="[in_Config(&quot;OverrideEmail&quot;).ToString]">
+        <ui:SendMail Bcc="{x:Null}" Cc="{x:Null}" From="{x:Null}" MailMessage="{x:Null}" Name="{x:Null}" Password="{x:Null}" ReplyTo="{x:Null}" TimeoutMS="{x:Null}" Body="[String.Format(&quot;Please see attached commit history report for {0} in (1) with {2}.&quot;, associateName, cohortIdentifier, trainerName)]" DisplayName="Send email to override email(s)" Email="[emailUsername]" EnableSSL="True" sap:VirtualizedContainerService.HintSize="334,148" sap2010:WorkflowViewState.IdRef="SendMail_2" IsBodyHtml="False" Port="[Integer.Parse(in_Config(&quot;EmailPort&quot;).ToString)]" SecureConnection="Auto" SecurePassword="[emailPassword]" Server="[in_Config(&quot;EmailServer&quot;).ToString]" Subject="Associate Commit History Report" To="[in_Config(&quot;OverrideEmail&quot;).ToString]">
           <ui:SendMail.Files>
             <scg:List x:TypeArguments="InArgument(x:String)" Capacity="4">
               <InArgument x:TypeArguments="x:String">[String.Format("{0}\{1} Commit History Report - {2}.pdf", outputPath, associateName, Now.ToString("MM-dd-yyyy"))]</InArgument>
