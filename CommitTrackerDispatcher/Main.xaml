@@ -147,8 +147,10 @@
                       </scg:List>
                     </ui:FilterDataTable.Filters>
                     <ui:FilterDataTable.SelectColumns>
-                      <scg:List x:TypeArguments="InArgument" Capacity="4">
+                      <scg:List x:TypeArguments="InArgument" Capacity="8">
                         <InArgument x:TypeArguments="x:String">["Associate_Name"]</InArgument>
+                        <InArgument x:TypeArguments="x:String">["Trainer_Name"]</InArgument>
+                        <InArgument x:TypeArguments="x:String">["Manager_Name"]</InArgument>
                         <InArgument x:TypeArguments="x:String">["GitHub_Organization"]</InArgument>
                         <InArgument x:TypeArguments="x:String">["GitHub_Username"]</InArgument>
                       </scg:List>

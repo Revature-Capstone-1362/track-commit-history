@@ -99,7 +99,7 @@
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
     <ui:LogMessage DisplayName="Log start of workflow" sap:VirtualizedContainerService.HintSize="875,91" sap2010:WorkflowViewState.IdRef="LogMessage_4" Level="Info" Message="[&quot;Counting commits...&quot;]" />
-    <ui:GetRobotCredential TimeoutMS="{x:Null}" AssetName="Git Credentials" DisplayName="Get GitHub credentials" FolderPath="P3 Automation" sap:VirtualizedContainerService.HintSize="875,180" sap2010:WorkflowViewState.IdRef="GetRobotCredential_1" Password="[gitToken]" Username="[gitUsername]" />
+    <ui:GetRobotCredential TimeoutMS="{x:Null}" AssetName="[in_Config(&quot;GitHubCredentialAssetName&quot;).ToString]" DisplayName="Get GitHub credentials" FolderPath="[in_Config(&quot;GitHubCredentialFolderPath&quot;).ToString]" sap:VirtualizedContainerService.HintSize="875,180" sap2010:WorkflowViewState.IdRef="GetRobotCredential_1" Password="[gitToken]" Username="[gitUsername]" />
     <ui:MultipleAssign DisplayName="Initialize counters and assign request URL for branches" sap:VirtualizedContainerService.HintSize="875,162" sap2010:WorkflowViewState.IdRef="MultipleAssign_1">
       <ui:MultipleAssign.AssignOperations>
         <scg:List x:TypeArguments="ui:AssignOperation" Capacity="8">

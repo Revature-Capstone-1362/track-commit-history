@@ -94,9 +94,21 @@
             </sap:WorkflowViewStateService.ViewState>
             <ui:AddQueueItem ServiceBaseAddress="{x:Null}" TimeoutMS="{x:Null}" ContinueOnError="True" DisplayName="Add associate to queue" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="AddQueueItem_1" Priority="Normal" QueueType="[in_Config(&quot;OrchestratorQueueName&quot;).ToString]">
               <ui:AddQueueItem.ItemInformation>
-                <InArgument x:TypeArguments="x:String" x:Key="Associate_Name">[item("Associate_Name").ToString]</InArgument>
-                <InArgument x:TypeArguments="x:String" x:Key="GitHub_Organization">[item("GitHub_Organization").ToString]</InArgument>
-                <InArgument x:TypeArguments="x:String" x:Key="GitHub_Username">[item("GitHub_Username").ToString]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="Associate_Name">
+                  <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="item(&quot;Associate_Name&quot;).ToString" />
+                </InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="Trainer_Name">
+                  <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="item(&quot;Trainer_Name&quot;).ToString" />
+                </InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="Manager_Name">
+                  <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="item(&quot;Manager_Name&quot;).ToString" />
+                </InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="GitHub_Organization">
+                  <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="item(&quot;GitHub_Organization&quot;).ToString" />
+                </InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="GitHub_Username">
+                  <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="item(&quot;GitHub_Username&quot;).ToString" />
+                </InArgument>
               </ui:AddQueueItem.ItemInformation>
             </ui:AddQueueItem>
           </Sequence>
