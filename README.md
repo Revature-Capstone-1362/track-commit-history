@@ -40,6 +40,7 @@ An automation to analyze and generate reports for the number of commits an assoc
 6. Open `config.xlsx` in `1.x.x\lib\net45\Data` directory of performer and set the queue name, information for the GitHub credential asset, and the information for the email account including the credential asset, server, and port.
     - Optionally set the path to the directory for output report PDFs. The default directory for output reports is the Output folder in this directory.
     - Optionally set override email(s) that reports will be sent to. By default, automation will send emails to the trainer and manager.
+    - Optionally modify document templates in the Input folder in this directory. Text enclosed in brackets must be present for automation to succeed.
 
 ### Constraints
 - Input data workbooks must contain the following information with the specified column names: `Associate_Name, Trainer_Name, Manager_Name, GitHub_Organization, GitHub_Username`.
