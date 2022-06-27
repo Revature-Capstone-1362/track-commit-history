@@ -12,15 +12,15 @@ An automation to analyze and generate reports for the number of commits an assoc
 - GitHub API
 
 ## Features
-- Accepts data input through Excel workbooks
-- Generates repository URLs based on standardized GitHub organization and repository names
-- Counts commits to main branch and any commits made to auxiliary branches not merged to main
+- Accepts data input through Excel workbooks.
+- Generates repository URLs based on standardized GitHub organization and repository names.
+- Counts commits to main branch and any commits made to auxiliary branches not merged to main.
 - Generates a PDF report containing the URL of the repository, number of commits separated by branch, and the total number of commits.
-- Allows custom input and output directories to be set in config.xlsx
-- Sends emails containing reports to trainers and managers, or optionally to one or more override email addresses
+- Allows custom input and output directories to be set in config file.
+- Sends emails containing reports to trainers and managers, or optionally to one or more override email addresses.
 
 ### Future Features
-- Include option to allow reports to be grouped together, reducing number of emails sent
+- Include option to allow reports to be grouped together, reducing number of emails sent.
 
 ## Getting Started
 
