@@ -45,3 +45,14 @@ An automation to analyze and generate reports for the number of commits an assoc
 ### Constraints
 - Input data workbooks must contain the following information with the specified column names: `Associate_Name, Trainer_Name, Manager_Name, GitHub_Organization, GitHub_Username`.
 - Project 1 repository names must adhere to the following naming scheme: `<Associate First Name>-<Associate Last Name>-P1`. (ex. Warren-Lee-P1)
+
+## Contributors
+- Team Baymax
+    - Warren Lee (Team Lead)
+    - Cynnetha Bellinger
+    - Frankline Elong
+    - Jaye Ayala
+- Team Iron Giant
+    - Mike Tuskey (Team Lead)
+    - Anthony McJunkins (Scrum Master)
+    - Diahandra Christian
