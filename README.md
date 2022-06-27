@@ -9,6 +9,7 @@ An automation to analyze and generate reports for the number of commits an assoc
 - UiPath Assistant
 - Microsoft Excel
 - Microsoft Word
+- GitHub API
 
 ## Features
 - Accepts data input through Excel workbooks
